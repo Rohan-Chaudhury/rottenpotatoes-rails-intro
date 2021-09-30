@@ -1,14 +1,24 @@
 <!--  This file is app/views/movies/index.html.erb -->
 <h2>All Movies</h2>
 
-<%#  Part 1: Start here... %>
-
+<%#  Part 2: Start here... %>
+<% if @distinct_ratings %>
+  <%= form_tag movies_path, :method => 'get', 'id'=>"ratings_form"  do %>
+  <span class=text_bold>Ratings :</span>
+  <% @distinct_ratings.each do |rating| %>
+   <%= rating %>
+   <%= check_box_tag "ratings[#{rating}]" , 1, if @ratings_filtered; @ratings_filtered.include?(rating) end, :id => "ratings_#{rating}" %>
+   <%= "    " %>
+  <% end %>
+  <%= submit_tag 'Refresh', 'id'=>"ratings_submit" ,:class => 'btn btn-primary' %>
+  <% end %>
+<%end%>
 <table class="table table-striped col-md-12" id="movies">
   <thead>
     <tr>
-      <th>Movie Title</th>
+      <th class="<%='text-info hilite' if @get_sorting_type == "title"%>"><%= link_to 'Movie Title', movies_path(:sort_type => "title"), :class => 'no_decoration', :id => 'title_header' %></th>
       <th>Rating</th>
-      <th>Release Date</th>
+      <th  class="<%='text-info hilite' if @get_sorting_type == "release_date"%>"><%= link_to 'Release Date', movies_path(:sort_type => "release_date"), :class => 'no_decoration',:id => 'release_date_header'%></th>
       <th>More Info</th>
     </tr>
   </thead>
