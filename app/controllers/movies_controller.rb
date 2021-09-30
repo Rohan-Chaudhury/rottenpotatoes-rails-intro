@@ -20,8 +20,7 @@ class MoviesController < ApplicationController
         new_movies=new_movies.where(rating: @ratings_filtered_keys)   
       else
         @ratings_filtered=@distinct_ratings
-        @ratings_filtered_keys=@distinct_ratings
-        new_movies=new_movies.where(rating: @ratings_filtered_keys) 
+        new_movies=new_movies.where(rating: @ratings_filtered) 
       end
       
       @get_sorting_type=params_sort
