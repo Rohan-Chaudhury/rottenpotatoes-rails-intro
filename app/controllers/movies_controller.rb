@@ -52,6 +52,8 @@ class MoviesController < ApplicationController
           params[:sort_type]=session[:sort_type]
         end
         flash.keep
+        
+        
         redirect_to movies_path(params)      
       end
         
